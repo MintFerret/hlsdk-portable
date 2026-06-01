@@ -95,7 +95,11 @@ float g_hud_text_color[3];
 extern client_sprite_t *GetSpriteList( client_sprite_t *pList, const char *psz, int iRes, int iCount );
 
 extern cvar_t *sensitivity;
+#if XASH_OGC
+cvar_t *cl_lw_client = NULL;
+#else
 cvar_t *cl_lw = NULL;
+#endif
 cvar_t *cl_viewbob = NULL;
 
 void ShutdownInput( void );
@@ -380,7 +384,11 @@ void CHud::Init( void )
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
 	m_pAllowHD = CVAR_CREATE ( "hud_allow_hd", "1", FCVAR_ARCHIVE );
+	#if XASH_OGC
+	cl_lw_client = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
+	#else
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
+	#endif
 	cl_viewbob = CVAR_CREATE( "cl_viewbob", "1", FCVAR_ARCHIVE );
 
 	m_pSpriteList = NULL;

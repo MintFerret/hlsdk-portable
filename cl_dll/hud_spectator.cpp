@@ -213,6 +213,7 @@ int CHudSpectator::Init()
 //-----------------------------------------------------------------------------
 // UTIL_StringToVector originally from ..\dlls\util.cpp, slightly changed
 //-----------------------------------------------------------------------------
+#ifdef CLIENT_WEAPONS
 void UTIL_StringToVector( float * pVector, const char *pString )
 {
 	char *pstr, *pfront, tempString[128];
@@ -240,6 +241,7 @@ void UTIL_StringToVector( float * pVector, const char *pString )
 			pVector[j] = 0;
 	}
 }
+#endif //CLIENT_WEAPONS
 
 int UTIL_FindEntityInMap( const char *name, float *origin, float *angle )
 {
@@ -347,12 +349,16 @@ int UTIL_FindEntityInMap( const char *name, float *origin, float *angle )
 
 			if( !strcmp( keyname, "angles" ) )
 			{
+				#if !XASH_OGC
 				UTIL_StringToVector( angle, token );
+				#endif
 			}
 
 			if( !strcmp( keyname, "origin" ) )
 			{
+				#if !XASH_OGC
 				UTIL_StringToVector( origin, token );
+				#endif
 			}
 		} // while (1)
 

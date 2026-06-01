@@ -132,8 +132,13 @@ extern kbutton_t in_mlook;
 extern kbutton_t in_speed;
 extern kbutton_t in_jlook;
 
+#if XASH_OGC
+extern cvar_t *m_pitch_client;
+extern cvar_t *m_yaw_client;
+#else
 extern cvar_t *m_pitch;
 extern cvar_t *m_yaw;
+#endif
 extern cvar_t *m_forward;
 extern cvar_t *m_side;
 
@@ -693,8 +698,13 @@ void IN_ScaleMouse( float *x, float *y )
 		//  to 0.022
 		if ( m_customaccel->value == 2 )
 		{
+			#if XASH_OGC
+			*x *= m_yaw_client->value;
+			*y *= m_pitch_client->value;
+			#else
 			*x *= m_yaw->value;
 			*y *= m_pitch->value;
+			#endif
 		}
 	}
 	else
@@ -876,7 +886,11 @@ void GoldSourceInput::IN_MouseMove ( float frametime, usercmd_t *cmd)
 		if ( (in_strafe.state & 1) || (lookstrafe->value && (in_mlook.state & 1) ))
 			cmd->sidemove += m_side->value * mouse_x;
 		else
+			#if XASH_OGC
+			viewangles[YAW] -= m_yaw_client->value * mouse_x;
+			#else
 			viewangles[YAW] -= m_yaw->value * mouse_x;
+			#endif
 
 		if ( (in_mlook.state & 1) && !(in_strafe.state & 1))
 		{
@@ -1460,7 +1474,11 @@ void GoldSourceInput::IN_JoyMove ( float frametime, usercmd_t *cmd )
 				{
 					// if mouse invert is on, invert the joystick pitch value
 					// only absolute control support here (joy_advanced is 0)
+					#if XASH_OGC
+					if (m_pitch_client->value < 0.0)
+					#else
 					if (m_pitch->value < 0.0)
+					#endif
 					{
 						viewangles[PITCH] -= (fAxisValue * joy_pitchsensitivity->value) * aspeed * cl_pitchspeed->value;
 					}

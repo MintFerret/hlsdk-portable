@@ -386,7 +386,8 @@ void VectorMatrix( vec3_t forward, vec3_t right, vec3_t up )
 	VectorNormalize( up );
 }
 
-void VectorAngles( const vec3_t forward, vec3_t angles )
+//XASH_OGC
+void VectorAngles_PM( const vec3_t forward, vec3_t angles )
 {
 	float tmp, yaw, pitch;
 

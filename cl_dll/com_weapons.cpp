@@ -150,7 +150,7 @@ HUD_SetMaxSpeed
 void HUD_SetMaxSpeed( const edict_t *ed, float speed )
 {
 }
-
+#ifdef CLIENT_WEAPONS
 /*
 =====================
 UTIL_WeaponTimeBase
@@ -259,7 +259,7 @@ float UTIL_SharedRandomFloat( unsigned int seed, float low, float high )
 		return ( low + offset * range );
 	}
 }
-
+#endif //CLIENT_WEAPONS
 /*
 ======================
 stub_*

@@ -61,8 +61,13 @@ extern cvar_t *in_joystick;
 int	in_impulse = 0;
 int	in_cancel = 0;
 
+#if XASH_OGC
+cvar_t	*m_pitch_client;
+cvar_t	*m_yaw_client;
+#else
 cvar_t	*m_pitch;
 cvar_t	*m_yaw;
+#endif
 cvar_t	*m_forward;
 cvar_t	*m_side;
 
@@ -1138,8 +1143,13 @@ void InitInput( void )
 
 	cl_vsmoothing		= gEngfuncs.pfnRegisterVariable( "cl_vsmoothing", "0.05", FCVAR_ARCHIVE );
 
+	#if XASH_OGC
+	m_pitch_client			= gEngfuncs.pfnRegisterVariable( "m_pitch","0.022", FCVAR_ARCHIVE );
+	m_yaw_client			= gEngfuncs.pfnRegisterVariable( "m_yaw","0.022", FCVAR_ARCHIVE );
+	#else
 	m_pitch			= gEngfuncs.pfnRegisterVariable( "m_pitch","0.022", FCVAR_ARCHIVE );
 	m_yaw			= gEngfuncs.pfnRegisterVariable( "m_yaw","0.022", FCVAR_ARCHIVE );
+	#endif
 	m_forward		= gEngfuncs.pfnRegisterVariable( "m_forward","1", FCVAR_ARCHIVE );
 	m_side			= gEngfuncs.pfnRegisterVariable( "m_side","0.8", FCVAR_ARCHIVE );
 

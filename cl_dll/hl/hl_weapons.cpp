@@ -128,7 +128,7 @@ void HUD_PrepEntity( CBaseEntity *pEntity, CBasePlayer *pWeaponOwner )
 		g_pWpns[info.iId] = (CBasePlayerWeapon *)pEntity;
 	}
 }
-
+#ifdef CLIENT_WEAPONS
 /*
 =====================
 CBaseEntity::Killed
@@ -489,7 +489,7 @@ void UTIL_TraceLine( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTE
 	memset( ptr, 0, sizeof(*ptr) );
 	ptr->flFraction = 1.0f;
 }
-
+#endif //CLIENT_WEAPONS
 /*
 =====================
 UTIL_ParticleBox
@@ -1036,7 +1036,11 @@ void _DLLEXPORT HUD_PostRunCmd( struct local_state_s *from, struct local_state_s
 	g_runfuncs = runfuncs;
 
 #if CLIENT_WEAPONS
+	#if XASH_OGC
+	if( cl_lw_client && cl_lw_client->value )
+	#else
 	if( cl_lw && cl_lw->value )
+	#endif
 	{
 		HUD_WeaponsPostThink( from, to, cmd, time, random_seed );
 	}

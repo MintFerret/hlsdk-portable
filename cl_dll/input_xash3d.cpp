@@ -16,8 +16,13 @@ extern kbutton_t	in_back;
 extern kbutton_t	in_moveleft;
 extern kbutton_t	in_moveright;
 
+#if XASH_OGC
+extern cvar_t	*m_pitch_client;
+extern cvar_t	*m_yaw_client;
+#else
 extern cvar_t	*m_pitch;
 extern cvar_t	*m_yaw;
+#endif
 extern cvar_t	*m_forward;
 extern cvar_t	*m_side;
 extern cvar_t	*lookstrafe;
@@ -239,7 +244,7 @@ void FWGSInput::IN_Move( float frametime, usercmd_t *cmd )
 	ac_movecount = 0;
 }
 
-void FWGSInput::IN_MouseEvent( int mstate )
+void FWGSInput::IN__MouseEvent( int mstate )
 {
 	static int mouse_oldbuttonstate;
 	// perform button actions
@@ -266,12 +271,12 @@ void FWGSInput::IN_ClearStates( void )
 	//gEngfuncs.Con_Printf( "IN_ClearStates\n" );
 }
 
-void FWGSInput::IN_ActivateMouse( void )
+void FWGSInput::IN__ActivateMouse( void )
 {
 	//gEngfuncs.Con_Printf( "IN_ActivateMouse\n" );
 }
 
-void FWGSInput::IN_DeactivateMouse( void )
+void FWGSInput::IN__DeactivateMouse( void )
 {
 	//gEngfuncs.Con_Printf( "IN_DeactivateMouse\n" );
 }
