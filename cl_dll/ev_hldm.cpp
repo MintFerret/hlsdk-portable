@@ -45,7 +45,11 @@ extern "C" char PM_FindTextureType( char *name );
 void V_PunchAxis( int axis, float punch );
 void VectorAngles( const float *forward, float *angles );
 
+#if XASH_OGC
+extern cvar_t *cl_lw_client;
+#else
 extern cvar_t *cl_lw;
+#endif
 
 extern "C"
 {
@@ -1427,7 +1431,11 @@ void EV_EgonFire( event_args_t *args )
 	if( EV_IsLocal( idx ) )
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( g_fireAnims1[gEngfuncs.pfnRandomLong( 0, 3 )], 0 );
 
+	#if XASH_OGC
+	if( iStartup == 1 && EV_IsLocal( idx ) && !( pBeam || pBeam2 || pFlare ) && cl_lw_client->value )
+	#else
 	if( iStartup == 1 && EV_IsLocal( idx ) && !( pBeam || pBeam2 || pFlare ) && cl_lw->value ) //Adrian: Added the cl_lw check for those lital people that hate weapon prediction.
+	#endif
 	{
 		vec3_t vecSrc, vecEnd, angles, forward, right, up;
 		pmtrace_t tr;
