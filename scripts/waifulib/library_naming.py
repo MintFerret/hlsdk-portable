@@ -66,6 +66,7 @@ DEFINES = [
 'XASH_SUNOS',
 'XASH_HURD',
 'XASH_S390X',
+'XASH_OGC',
 ]
 
 def configure(conf):
@@ -115,6 +116,8 @@ def configure(conf):
 		buildos = "sunos"
 	elif conf.env.XASH_HURD:
 		buildos = "hurd"
+	elif conf.env.XASH_OGC:
+		buildos = "wii"
 	else:
 		conf.fatal("Place your operating system name in build.h and library_naming.py!\n"
 			"If this is a mistake, try to fix conditions above and report a bug")
