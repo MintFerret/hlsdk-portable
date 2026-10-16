@@ -143,6 +143,7 @@ def configure(conf):
 		if 'sgug' in os.environ['LD_LIBRARYN32_PATH']:
 			linkflags.append('-lc')
 
+
 	conf.check_cc(cflags=cflags, linkflags=linkflags, msg='Checking for required C flags')
 	conf.check_cxx(cxxflags=cxxflags, linkflags=linkflags, msg='Checking for required C++ flags')
 
@@ -298,7 +299,11 @@ def configure(conf):
 		# no prebuilt vgui shared library exists here by default, so link FreeVGUI into the client
 		conf.env.USE_STATIC_FREEVGUI = True
 
-	conf.load('library_naming')
+	if not conf.env.STATIC_LINKING:
+		conf.load('library_naming')
+	else:
+		conf.env.POSTFIX = ""
+
 	conf.add_subproject('game_shared dlls freevgui cl_dll')
 
 def build(bld):
