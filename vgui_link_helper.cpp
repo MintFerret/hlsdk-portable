@@ -2,10 +2,10 @@
 
 extern "C"
 {
-extern void InitVGUISupportAPI( vguiapi_t *api );
+extern int GetVGUISupportAPI( int version, vgui_support_interface_t *iface, const vgui_support_api_t *engfuncs );
 
 struct {const char *name;void *func;} lib_vgui_exports[] = {
-{ "InitVGUISupportAPI", &InitVGUISupportAPI },
+{ "GetVGUISupportAPI", &GetVGUISupportAPI },
 { 0, 0 }
 };
 }
